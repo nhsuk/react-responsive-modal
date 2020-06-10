@@ -32,6 +32,7 @@ const CloseIcon = ({
     style={styles?.closeButton}
     onClick={onClickCloseIcon}
     data-testid="close-button"
+    aria-label="close this"
   >
     {closeIcon ? (
       closeIcon
