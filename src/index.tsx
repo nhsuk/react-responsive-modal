@@ -53,6 +53,10 @@ interface ModalProps {
    */
   closeIconId?: string;
   /**
+   * title attribute for the close icon button.
+   */
+  closeIconTitle?: string;
+  /**
    * Custom icon to render (svg, img, etc...).
    */
   closeIcon?: React.ReactNode;
@@ -142,6 +146,7 @@ export const Modal = ({
   container,
   showCloseIcon = true,
   closeIconId,
+  closeIconTitle,
   closeIcon,
   focusTrapped = true,
   animationDuration = 500,
@@ -324,6 +329,7 @@ export const Modal = ({
                 classes={classes}
                 classNames={classNames}
                 styles={styles}
+                title={closeIconTitle}
                 closeIcon={closeIcon}
                 onClickCloseIcon={handleClickCloseIcon}
                 id={closeIconId}

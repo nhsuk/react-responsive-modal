@@ -3,6 +3,7 @@ import cx from 'classnames';
 
 interface CloseIconProps {
   id?: string;
+  title?: string;
   closeIcon?: React.ReactNode;
   styles?: {
     closeButton?: React.CSSProperties;
@@ -23,6 +24,7 @@ const CloseIcon = ({
   classNames,
   styles,
   id,
+  title,
   closeIcon,
   onClickCloseIcon,
 }: CloseIconProps) => (
@@ -32,7 +34,8 @@ const CloseIcon = ({
     style={styles?.closeButton}
     onClick={onClickCloseIcon}
     data-testid="close-button"
-    aria-label="close this"
+    aria-label={title}
+    title={title}
   >
     {closeIcon ? (
       closeIcon
