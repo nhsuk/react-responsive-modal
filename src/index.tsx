@@ -8,22 +8,6 @@ import modalManager from './modalManager';
 import { isBrowser, blockNoScroll, unblockNoScroll } from './utils';
 
 const useStyles = {
-  '@keyframes react-responsive-modal-fadeIn': {
-    '0%': {
-      opacity: 0,
-    },
-    '100%': {
-      opacity: 1,
-    },
-  },
-  '@keyframes react-responsive-modal-fadeOut': {
-    '0%': {
-      opacity: 1,
-    },
-    '100%': {
-      opacity: 0,
-    },
-  },
     overlay: {
       background: 'rgba(0, 0, 0, 0.75)',
       display: 'flex',
@@ -65,6 +49,22 @@ const useStyles = {
     },
     animationOut: {
       animation: '$react-responsive-modal-fadeOut',
+    },
+    '@keyframes react-responsive-modal-fadeIn': {
+      '0%': {
+        opacity: 0,
+      },
+      '100%': {
+        opacity: 1,
+      },
+    },
+    '@keyframes react-responsive-modal-fadeOut': {
+      '0%': {
+        opacity: 1,
+      },
+      '100%': {
+        opacity: 0,
+      },
     },
 };
 
@@ -190,7 +190,8 @@ interface ModalProps extends WithStylesProps<typeof useStyles> {
   children?: React.ReactNode;
 }
 
-export const Modal = ({
+//export const Modal: React.FunctionComponent<IMyClassProps> = ({
+const Modal = ({
   open,
   center,
   blockScroll = true,
@@ -219,7 +220,7 @@ export const Modal = ({
   const refModal = useRef<HTMLDivElement>(null);
   const refShouldClose = useRef<boolean | null>(null);
   const refContainer = useRef<HTMLDivElement | null>(null);
-
+  
   // Lazily create the ref instance
   // https://reactjs.org/docs/hooks-faq.html#how-to-create-expensive-objects-lazily
   if (refContainer.current === null && isBrowser) {
