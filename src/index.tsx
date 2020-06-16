@@ -1,21 +1,74 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ReactDom from 'react-dom';
+import withStyles, { WithStylesProps } from 'react-jss'
 import cx from 'classnames';
 import CloseIcon from './CloseIcon';
 import { FocusTrap } from './FocusTrap';
 import modalManager from './modalManager';
 import { isBrowser, blockNoScroll, unblockNoScroll } from './utils';
 
-const classes = {
-  overlay: 'react-responsive-modal-overlay',
-  modal: 'react-responsive-modal-modal',
-  modalCenter: 'react-responsive-modal-modalCenter',
-  closeButton: 'react-responsive-modal-closeButton',
-  animationIn: 'react-responsive-modal-fadeIn',
-  animationOut: 'react-responsive-modal-fadeOut',
+const useStyles = {
+  '@keyframes react-responsive-modal-fadeIn': {
+    '0%': {
+      opacity: 0,
+    },
+    '100%': {
+      opacity: 1,
+    },
+  },
+  '@keyframes react-responsive-modal-fadeOut': {
+    '0%': {
+      opacity: 1,
+    },
+    '100%': {
+      opacity: 0,
+    },
+  },
+    overlay: {
+      background: 'rgba(0, 0, 0, 0.75)',
+      display: 'flex',
+      alignItems: 'flex-start',
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      overflowY: 'auto',
+      overflowX: 'hidden',
+      zIndex: 1000,
+      padding: '1.2rem',
+    },
+    modal: {
+      maxWidth: 800,
+      position: 'relative',
+      padding: '1.2rem',
+      background: '#ffffff',
+      backgroundClip: 'padding-box',
+      boxShadow: '0 12px 15px 0 rgba(0, 0, 0, 0.25)',
+      margin: '0 auto',
+    },
+    modalCenter: {
+      margin: 'auto',
+    },
+    closeButton: {
+      position: 'absolute',
+      top: 14,
+      right: 14,
+      border: 'none',
+      padding: 0,
+      cursor: 'pointer',
+      backgroundColor: 'transparent',
+      display: 'flex',
+    },
+    animationIn: {
+      animation: '$react-responsive-modal-fadeIn',
+    },
+    animationOut: {
+      animation: '$react-responsive-modal-fadeOut',
+    },
 };
 
-interface ModalProps {
+interface ModalProps extends WithStylesProps<typeof useStyles> {
   /**
    * Control if the modal is open or not.
    */
@@ -160,11 +213,13 @@ export const Modal = ({
   onEscKeyDown,
   onOverlayClick,
   onAnimationEnd,
+  classes,
   children,
 }: ModalProps) => {
   const refModal = useRef<HTMLDivElement>(null);
   const refShouldClose = useRef<boolean | null>(null);
   const refContainer = useRef<HTMLDivElement | null>(null);
+
   // Lazily create the ref instance
   // https://reactjs.org/docs/hooks-faq.html#how-to-create-expensive-objects-lazily
   if (refContainer.current === null && isBrowser) {
@@ -342,4 +397,4 @@ export const Modal = ({
     : null;
 };
 
-export default Modal;
+export default withStyles(useStyles)(Modal);
